@@ -16,3 +16,8 @@ import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/
 ### - Carrega as fontes, caso tenha carregado corretamente irá alterar a variável fontsLoaded para true
 const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
 
+## Biblioteca de Componentes - Native Base
+Instalando a biblioteca
+ - npm install native-base
+ - npx expo install react-native-svg@12.1.1
+ - npx expo install react-native-safe-area-context@3.3.2
