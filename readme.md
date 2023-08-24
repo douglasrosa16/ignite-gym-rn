@@ -21,3 +21,13 @@ Instalando a biblioteca
  - npm install native-base
  - npx expo install react-native-svg@12.1.1
  - npx expo install react-native-safe-area-context@3.3.2
+
+### Erros e Soluções
+#### Native base
+- Erro: In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app
+- Solução: https://github.com/GeekyAnts/NativeBase/issues/5758
+Abra o arquivo node_modules/native-base/src/core/NativeBaseProvider.tsx
+Na linha 97 altere <SSRProvider>{children}</SSRProvider> para:
+{
+  React.version >= '18' ? children : <SSRProvider>{children}</SSRProvider>;
+}
