@@ -31,3 +31,10 @@ Na linha 97 altere <SSRProvider>{children}</SSRProvider> para:
 {
   React.version >= '18' ? children : <SSRProvider>{children}</SSRProvider>;
 }
+
+### Tipos Typescript
+#### Cria uma pasta @types
+  - Tipo de Imagem
+    Cannot find module '@assets/Background.png' or its corresponding type declarations.ts(2307)
+  - Cria o arquivo "png.d.ts"
+  - Coloca o conteúdo nele: declare module "*.png";
