@@ -22,7 +22,7 @@ Instalando a biblioteca
  - npx expo install react-native-svg@12.1.1
  - npx expo install react-native-safe-area-context@3.3.2
 
-## 4º React Navigation
+## 4º React Navigation (Navegação da aplicação)
 -> Core da navegação
   - npm install @react-navigation/native
 -> Dependências de navegação
@@ -31,6 +31,8 @@ Instalando a biblioteca
   -> Safe area Context: para os elementos serem exibidos de forma segura na tela
 -> Utilizar como estratégia de navegação para as rotas de autenticação
   - npm install @react-navigation/native-stack
+-> Estratégia de navegação com bottom tab
+  - npm install @react-navigation/bottom-tabs
 
 ### Utilizando SVG - React Native SVG Transformer
   [doc]: https://github.com/kristerkari/react-native-svg-transformer
