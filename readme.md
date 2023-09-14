@@ -44,7 +44,7 @@ Instalando a biblioteca
 Abra o arquivo node_modules/native-base/src/core/NativeBaseProvider.tsx
 Na linha 97 altere <SSRProvider>{children}</SSRProvider> para:
 {
-  React.version >= '18' ? children : <SSRProvider>{children}</SSRProvider>;
+  React.version >= '18' ? children : <SSRProvider>{children}</SSRProvider>
 }
 
 ## Tipos Typescript
