@@ -49,8 +49,6 @@ Na linha 97 altere <SSRProvider>{children}</SSRProvider> para:
   React.version >= '18' ? children : <SSRProvider>{children}</SSRProvider>
 }
 
-Teste
-
 ## Tipos Typescript
 ### Cria uma pasta @types
   - Tipo de Imagem
@@ -66,4 +64,6 @@ Teste
     const content: React.FC<SvgProps>;
     export default content;
   }
+
+  teste
 
