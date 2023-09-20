@@ -65,5 +65,3 @@ Na linha 97 altere <SSRProvider>{children}</SSRProvider> para:
     export default content;
   }
 
-  teste
-
