@@ -64,5 +64,3 @@ Na linha 97 altere <SSRProvider>{children}</SSRProvider> para:
     const content: React.FC<SvgProps>;
     export default content;
   }
-
-Voltando
