@@ -20,6 +20,7 @@ export function Home() {
         <Group name="ombro" isActive={groupSelected === "ombro"}/>
         <Group name="bícepes" isActive={groupSelected === "bícepes"}/>
       </HStack>
+      
     </VStack>
   );
 } 
