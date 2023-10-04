@@ -32,8 +32,6 @@ export function SignIn() {
           <Text color="gray.100" fontSize="sm">
             Treine sua mente e seu corpo
           </Text>
-
-
         </Center>
 
         <Center>
@@ -45,7 +43,6 @@ export function SignIn() {
             placeholder="E-mail"
             keyboardType="email-address"
             autoCapitalize="none"
-
           />
 
           <Input
