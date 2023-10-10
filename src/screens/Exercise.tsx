@@ -72,8 +72,7 @@ export function Exercise() {
             />
           </Box>
         </VStack>
-      </ScrollView>
-      
+      </ScrollView>      
     </VStack>
   )
 }
