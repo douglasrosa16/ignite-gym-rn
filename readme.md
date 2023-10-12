@@ -67,3 +67,7 @@ Na linha 97 altere <SSRProvider>{children}</SSRProvider> para:
 
 ## Image Picker
 - Biblioteca do expo para utilizar fotos no celular
+
+## Validação de Formulários
+Instalação: npm install react-hook-form
+O React Hook Form controla os Inputs dos objetos e consegue realizar uma validação nos campos
