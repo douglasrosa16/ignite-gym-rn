@@ -49,6 +49,11 @@ Na linha 97 altere <SSRProvider>{children}</SSRProvider> para:
   React.version >= '18' ? children : <SSRProvider>{children}</SSRProvider>
 }
 
+#### Yup Resolver
+- Type 'Resolver<{ name: string; email: string; }>' is not assignable to type 'Resolver<FormDataProps,>
+- Solução: npm i yup@latest e também tive que colocar todos os campos dentro do Schema para ele parar de ocorrer o erro
+
+
 ## Tipos Typescript
 ### Cria uma pasta @types
   - Tipo de Imagem
@@ -71,3 +76,6 @@ Na linha 97 altere <SSRProvider>{children}</SSRProvider> para:
 ## Validação de Formulários
 Instalação: npm install react-hook-form
 O React Hook Form controla os Inputs dos objetos e consegue realizar uma validação nos campos
+
+## Yup - Biblioteca de validação baseada em schemas 
+Instalação: npm install @hookform/resolvers yup
