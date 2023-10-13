@@ -40,7 +40,7 @@ Instalando a biblioteca
   - Configuração do metro config
 
 ## Erros e Soluções
-#### Native base
+### Native base
 - Erro: In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app
 - Solução: https://github.com/GeekyAnts/NativeBase/issues/5758
 Abra o arquivo node_modules/native-base/src/core/NativeBaseProvider.tsx
@@ -49,7 +49,7 @@ Na linha 97 altere <SSRProvider>{children}</SSRProvider> para:
   React.version >= '18' ? children : <SSRProvider>{children}</SSRProvider>
 }
 
-#### Yup Resolver
+### Yup Resolver
 - Type 'Resolver<{ name: string; email: string; }>' is not assignable to type 'Resolver<FormDataProps,>
 - Solução: npm i yup@latest e também tive que colocar todos os campos dentro do Schema para ele parar de ocorrer o erro
 
