@@ -2,6 +2,7 @@
 
 ## 1º - Criaçao do projeto:
   npx create-expo-app --template
+   - Utilizando typescript como template
 
 ## 2º - Definindo a estrutura de mapeamento
 npm install --save-dev babel-plugin-module-resolver
@@ -79,3 +80,7 @@ O React Hook Form controla os Inputs dos objetos e consegue realizar uma valida�
 
 ## Yup - Biblioteca de validação baseada em schemas 
 Instalação: npm install @hookform/resolvers yup
+
+## Integração com Backend
+- Axios: realiza a integração de uma maneira mais simples que o fetch do JS
+Instalação: npm install axios
