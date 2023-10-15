@@ -34,18 +34,17 @@ export function SignUp() {
     navigation.goBack(); //Volta para a tela anterior
   }
 
-  function handleSignUp({ name, email, password, password_confirm }: FormDataProps) {
-    console.log(name+email+password)
-    fetch('http://10.1.1.87:3333/users', {
+  async function handleSignUp({ name, email, password, password_confirm }: FormDataProps) {
+    const response = await fetch('http://192.168.0.102:3333/users', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ name, email, password })
-    })
+    });
 
-    console.log(name+email+password)
+    const data = await response.json();
 
   }
 
@@ -75,7 +74,7 @@ export function SignUp() {
 
           <Controller
             control={control}
-            name="name"            
+            name="name"
             render={({ field: { onChange, value } }) => (
               <Input
                 placeholder="Nome"
@@ -88,7 +87,7 @@ export function SignUp() {
 
           <Controller
             control={control}
-            name="email"      
+            name="email"
             render={({ field: { onChange, value } }) => (
               <Input
                 placeholder="E-mail"
@@ -109,7 +108,7 @@ export function SignUp() {
                 placeholder="Senha"
                 secureTextEntry
                 onChangeText={onChange}
-                value={value}                
+                value={value}
                 errorMessage={errors.password?.message}
               />
             )}
