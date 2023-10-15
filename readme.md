@@ -84,3 +84,8 @@ Instalação: npm install @hookform/resolvers yup
 ## Integração com Backend
 - Axios: realiza a integração de uma maneira mais simples que o fetch do JS
 Instalação: npm install axios
+
+## Persistindo os dados na aplicação
+- Para persistir o usuário logado na aplicação pode ser usado o AsyncStorage do EXPO
+- Instalação: npx expo install @react-native-async-storage/async-storage
+- Dessa forma é possível salvar na storage do APP
