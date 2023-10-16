@@ -89,3 +89,10 @@ Instalação: npm install axios
 - Para persistir o usuário logado na aplicação pode ser usado o AsyncStorage do EXPO
 - Instalação: npx expo install @react-native-async-storage/async-storage
 - Dessa forma é possível salvar na storage do APP
+
+## JWT (JSON Web Token)
+- Autenticação JWT: meio para troca de informações no fluxo de autenticação
+- Composto por: 
+  - Header
+  - Payload
+  - Verificação de assinatura
