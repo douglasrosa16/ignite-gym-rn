@@ -23,14 +23,12 @@ export function Home() {
   const toast = useToast();
   const navigation = useNavigation<AppNavigatorRoutesProps>();
 
-  function handleOpenExerciseDetails() {
-    navigation.navigate('exercise');
+  function handleOpenExerciseDetails(exerciseId: string) {
+    navigation.navigate('exercise', { exerciseId });
   }
 
   async function fetchGroups() {
     try {
-
-
       const response = await api.get('/groups');
       setGroups(response.data);
 
@@ -98,29 +96,29 @@ export function Home() {
       {
         isLoading ? <Loading /> :
 
-        <VStack flex={1} px={8}>
-          <HStack justifyContent="space-between" mb={5}>
-            <Heading color="gray.200" fontSize="md" fontFamily="heading">
-              Exercícios
-            </Heading>
-            <Text color="gray.200" fontSize="sm">
-              {exercises.length}
-            </Text>
-          </HStack>
+          <VStack flex={1} px={8}>
+            <HStack justifyContent="space-between" mb={5}>
+              <Heading color="gray.200" fontSize="md" fontFamily="heading">
+                Exercícios
+              </Heading>
+              <Text color="gray.200" fontSize="sm">
+                {exercises.length}
+              </Text>
+            </HStack>
 
-          <FlatList
-            data={exercises}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <ExerciseCard
-                onPress={handleOpenExerciseDetails}
-                data={item}
-              />
-            )}
-            showsVerticalScrollIndicator={false}
-            _contentContainerStyle={{ paddingBottom: 20 }}
-          />
-        </VStack>
+            <FlatList
+              data={exercises}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                <ExerciseCard
+                  onPress={() => handleOpenExerciseDetails(item.id)}
+                  data={item}
+                />
+              )}
+              showsVerticalScrollIndicator={false}
+              _contentContainerStyle={{ paddingBottom: 20 }}
+            />
+          </VStack>
 
       }
 
