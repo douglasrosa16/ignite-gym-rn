@@ -18,7 +18,7 @@ export function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [groups, setGroups] = useState<string[]>([])
   const [exercises, setExercises] = useState<ExerciseDTO[]>([]);
-  const [groupSelected, setGroupSelected] = useState<string>('costas');
+  const [groupSelected, setGroupSelected] = useState<string>('antebraço');
 
   const toast = useToast();
   const navigation = useNavigation<AppNavigatorRoutesProps>();
@@ -95,7 +95,6 @@ export function Home() {
 
       {
         isLoading ? <Loading /> :
-
           <VStack flex={1} px={8}>
             <HStack justifyContent="space-between" mb={5}>
               <Heading color="gray.200" fontSize="md" fontFamily="heading">
@@ -119,7 +118,6 @@ export function Home() {
               _contentContainerStyle={{ paddingBottom: 20 }}
             />
           </VStack>
-
       }
 
     </VStack>
