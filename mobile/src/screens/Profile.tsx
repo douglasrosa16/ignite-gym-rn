@@ -53,7 +53,7 @@ export function Profile() {
   const [userPhoto, setUserPhoto] = useState<string>('https://github.com/douglasrosa16.png');
 
   const toast = useToast();
-  const { user } = useAuth();
+  const { user, updateUserProfile } = useAuth();
 
   const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
     defaultValues: {
@@ -66,8 +66,13 @@ export function Profile() {
   async function handleProfileUpdate(data: FormDataProps) {
     try {
       setIsUpdating(true);
+
+      const userUpdated = user;
+      userUpdated.name = data.name;
       
       await api.put('/users', data);
+
+      await updateUserProfile(userUpdated);
 
       toast.show({
         title: 'Perfil atualizado com sucesso!',
@@ -117,6 +122,32 @@ export function Profile() {
             bgColor: 'red.500'
           })
         }
+
+        const fileExtension = photoSelected.assets[0].uri.split('.').pop();
+
+        const photoFile = {
+          name: `${user.name}.${fileExtension}`.toLowerCase(),
+          uri: photoSelected.assets[0].uri,
+          type: `${photoSelected.assets[0].type}/${fileExtension}`
+        } as any;
+
+        console.log(photoFile);
+
+        const userPhotoUploadForm = new FormData();
+
+        userPhotoUploadForm.append('avatar', photoFile);
+
+        await api.patch('/users/avatar', userPhotoUploadForm, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
+        toast.show({
+          title: 'Foto atualizada',
+          placement: 'top',
+          bgColor: 'green.500'
+        })
       }
     } catch (error) {
       console.log(error);
