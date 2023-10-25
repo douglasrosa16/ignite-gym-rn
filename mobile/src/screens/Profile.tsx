@@ -5,8 +5,10 @@ import * as FileSystem from 'expo-file-system';
 import { FileInfo } from "expo-file-system";
 import { Center, ScrollView, VStack, Skeleton, Text, Heading, useToast } from 'native-base';
 
+import { api } from '@services/api';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { AppError } from '@utils/AppError';
 import * as yup from 'yup';
 
 import { ScreenHeader } from '@components/ScreenHeader';
@@ -22,13 +24,13 @@ type FormDataProps = {
   email: string; 
   password?: string | null | undefined;  
   confirm_password?: string | null | undefined;
-  old_password?: string | null;    
+  old_password?: string | null | undefined;    
 }
 
 const profileSchema = yup.object({
   name: yup.string().required('Informe o nome.'),
-  email: yup.string().required('Informe o email.').email(),
-  old_password: yup.string().required('Informe a senha antiga.').nullable().transform((value) => !!value ? value : null),
+  // email: yup.string().required('Informe o email.').email(),
+  // old_password: yup.string().required('Informe a senha antiga.').nullable().transform((value) => !!value ? value : null),
   password: yup.string().min(6, 'A senha deve ter pelo menos 6 dígitos.').nullable().transform((value) => !!value ? value : null),
   confirm_password: yup
     .string()
@@ -41,6 +43,7 @@ const profileSchema = yup.object({
         schema
         .nullable()
         .required('Informe a confirmação da senha.')       
+        .transform((value) => !!value ? value : null)
     })
 })
 
@@ -52,7 +55,6 @@ export function Profile() {
   const toast = useToast();
   const { user } = useAuth();
 
-  console.log(user);
   const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
     defaultValues: {
       name: user.name,
@@ -61,12 +63,27 @@ export function Profile() {
     resolver: yupResolver<FormDataProps>(profileSchema)
   });
 
-  function handleProfileUpdate(data: FormDataProps) {
+  async function handleProfileUpdate(data: FormDataProps) {
     try {
       setIsUpdating(true);
       
-    } catch (error) {
+      await api.put('/users', data);
+
+      toast.show({
+        title: 'Perfil atualizado com sucesso!',
+        placement: 'top',
+        bgColor: 'green.500'
+      });
       
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+      const title = isAppError ? error.message : 'Não foi possível atualizar o usuário. Tente mais tarde'
+
+      toast.show({
+        title: title,
+        placement: 'top',
+        bgColor: 'red.500'
+      })
     } finally {
       setIsUpdating(false);
     }
@@ -219,6 +236,7 @@ export function Profile() {
             title="Atualizar"
             mt={4}
             onPress={handleSubmit(handleProfileUpdate)}
+            isLoading={isUpdating}
           />
         </Center>
       </ScrollView>
