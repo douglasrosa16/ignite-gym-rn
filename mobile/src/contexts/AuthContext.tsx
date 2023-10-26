@@ -98,7 +98,6 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     } finally {
       setIsLoadingUserStorageData(false);
     }
-
   }
 
   useEffect(() => {

@@ -11,6 +11,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { AppError } from '@utils/AppError';
 import * as yup from 'yup';
 
+import defaultUserPhotoImg from '@assets/userPhotoDefault.png';
+
 import { ScreenHeader } from '@components/ScreenHeader';
 import { UserPhoto } from '@components/UserPhoto';
 import { Input } from '@components/Input';
@@ -21,17 +23,17 @@ const PHOTO_SIZE = 33;
 
 type FormDataProps = {
   name: string;
-  email: string; 
+  email: string;
   password?: string | null | undefined;  
+  old_password?: string | null | undefined;
   confirm_password?: string | null | undefined;
-  old_password?: string | null | undefined;    
 }
 
 const profileSchema = yup.object({
   name: yup.string().required('Informe o nome.'),
-  // email: yup.string().required('Informe o email.').email(),
-  // old_password: yup.string().required('Informe a senha antiga.').nullable().transform((value) => !!value ? value : null),
+  email: yup.string().required('Informe o email.').email(),
   password: yup.string().min(6, 'A senha deve ter pelo menos 6 dígitos.').nullable().transform((value) => !!value ? value : null),
+  old_password: yup.string().nullable().transform((value) => !!value ? value : null),  
   confirm_password: yup
     .string()
     .nullable()
@@ -41,16 +43,16 @@ const profileSchema = yup.object({
       is: (Field: any) => Field,
       then: (schema) =>
         schema
-        .nullable()
-        .required('Informe a confirmação da senha.')       
-        .transform((value) => !!value ? value : null)
+          .nullable()
+          .required('Informe a confirmação da senha.')
+          .transform((value) => !!value ? value : null)
     })
 })
 
 export function Profile() {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [photoIsLoading, setPhotoIsLoading] = useState<boolean>(false);
-  const [userPhoto, setUserPhoto] = useState<string>('https://github.com/douglasrosa16.png');
+  const [userPhoto, setUserPhoto] = useState<string>();
 
   const toast = useToast();
   const { user, updateUserProfile } = useAuth();
@@ -69,7 +71,7 @@ export function Profile() {
 
       const userUpdated = user;
       userUpdated.name = data.name;
-      
+
       await api.put('/users', data);
 
       await updateUserProfile(userUpdated);
@@ -79,7 +81,7 @@ export function Profile() {
         placement: 'top',
         bgColor: 'green.500'
       });
-      
+
     } catch (error) {
       const isAppError = error instanceof AppError;
       const title = isAppError ? error.message : 'Não foi possível atualizar o usuário. Tente mais tarde'
@@ -137,11 +139,16 @@ export function Profile() {
 
         userPhotoUploadForm.append('avatar', photoFile);
 
-        await api.patch('/users/avatar', userPhotoUploadForm, {
+        const avatarUpdatedResponse = await api.patch('/users/avatar', userPhotoUploadForm, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         });
+
+        const userUpdated = user;
+
+        userUpdated.avatar = avatarUpdatedResponse.data.avatar;
+        updateUserProfile(userUpdated);
 
         toast.show({
           title: 'Foto atualizada',
@@ -173,7 +180,11 @@ export function Profile() {
               />
               :
               <UserPhoto
-                source={{ uri: userPhoto }}
+                source={
+                  user.avatar
+                    ? { uri: `${api.defaults.baseURL}/avatar/${user.avatar}` }
+                    : defaultUserPhotoImg
+                }
                 alt="Foto do usuário"
                 size={PHOTO_SIZE}
               />
@@ -222,11 +233,12 @@ export function Profile() {
           <Controller
             control={control}
             name="old_password"
-            render={({ field: { onChange } }) => (
+            render={({ field: { onChange, value } }) => (
               <Input
                 bg="gray.600"
                 placeholder="Senha antiga"
                 secureTextEntry
+                value={value ? value : ''}
                 onChangeText={onChange}
                 errorMessage={errors.old_password?.message}
               />
@@ -241,8 +253,8 @@ export function Profile() {
                 bg="gray.600"
                 placeholder="Nova senha"
                 secureTextEntry
+                value={value ? value : ''}
                 onChangeText={onChange}
-                value={value}
                 errorMessage={errors.password?.message}
               />
             )}
@@ -257,7 +269,7 @@ export function Profile() {
                 placeholder="Confirme a nova senha"
                 secureTextEntry
                 onChangeText={onChange}
-                value={value}
+                value={value ? value : ''}
                 errorMessage={errors.confirm_password?.message}
               />
             )}
