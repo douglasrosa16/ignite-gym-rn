@@ -96,3 +96,14 @@ Instalação: npm install axios
   - Header
   - Payload
   - Verificação de assinatura
+
+### Refresh Token
+1. Usuário envia requisição com token
+2. Back-end valida token 
+3. Intercepta a resposta do back-end (Middleware)
+4. Coloca a requisição na fila de espera
+5. Obtém token atual
+6. Busca novo token no back-end
+7. Atualiza token no Headers e no dispositivo
+8. Processa requisições da fila de espera
+9. Retorna a requisição se for sucesso, ou Desloga o usuário
