@@ -97,6 +97,12 @@ Instalação: npm install axios
   - Payload
   - Verificação de assinatura
 
+## Token
+- É um artefato que permite que o Backend identifique o usuário e com isso autorize a requisição
+- Dois pilares: 
+  - Autenticação: confirmação da identidade do usuário, exemplo fluxo de login
+  - Autorização: verificação de quais recursos o usuário pode utilizar, nível de acesso
+
 ### Refresh Token
 1. Usuário envia requisição com token
 2. Back-end valida token 
